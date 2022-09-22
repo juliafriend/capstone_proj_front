@@ -5,146 +5,168 @@ import axios from 'axios';
 const App = () => {
 
 const [packlists, setPacklists]= useState([])
-// state = {
-//       packlists:[]
-//   }
-
-const getPackList = () => {
-      axios.get('http://localhost:8080/pack').then(
-          (response) => setPacklists(response.data),
-          (err) => console.error(err))
-          .catch((error) => console.error(error))
-  }
-
-const createPackList = (event) => {
-      event.preventDefault();
-      axios.post(
-          '/pack',
-          {
-              day:this.state.newDay,
-              date:this.state.newDate,
-              outfitOne:this.state.newOutfitOne,
-              outfitTwo:this.state.newOutfitTwo,
-              outfitThree:this.state.newOutfitThree,
-          }
-      ).then(
-          (response) => {
-              this.setState({
-                  packlists:response.data
-              })
-          }
-      )
-  }
+const [newDay, setNewDay]= useState('');
+const [newDate, setNewDate]= useState('');
+const [newOutfitOne, setNewOutfitOne]= useState('');
+const [newOutfitTwo, setNewOutfitTwo]= useState('');
+const [newOutfitThree, setNewOutfitThree]= useState('');
+const [updatedDay, setUpdatedDay]= useState('');
+const [updatedDate, setUpdatedDate]= useState('');
+const [updatedOutfitOne, setUpdatedOutfitOne]= useState('');
+const [updatedOutfitTwo, setUpdatedOutfitTwo]= useState('');
+const [updatedOutfitThree, setUpdatedOutfitThree]= useState('');
 
 const changeNewDay = (event) => {
-      this.setState({
-          newDay:event.target.value
-      });
-  }
-
+  setNewDay(event.target.value)
+}
 const changeNewDate = (event) => {
-      this.setState({
-          newDate:event.target.value
-      });
-  }
+    setNewDate(event.target.value)
+}
 const changeNewOutfitOne = (event) => {
-      this.setState({
-          newOutfitOne:event.target.value
-      });
-  }
+  setNewOutfitOne(event.target.value)
+}
 const changeNewOutfitTwo = (event) => {
-      this.setState({
-          newOutfitTwo:event.target.value
-      });
-  }
+  setNewOutfitTwo(event.target.value)
+}
 const changeNewOutfitThree = (event) => {
-      this.setState({
-          newOutfitThree:event.target.value
-      });
+  setNewOutfitThree(event.target.value)
+}
+const changeUpdateDay = (event) => {
+  setUpdatedDay(event.target.value)
+}
+const changeUpdateDate = (event) => {
+  setUpdatedDate(event.target.value)
+}
+const changeUpdateOutfitOne = (event) => {
+  setUpdatedOutfitOne(event.target.value)
+}
+const changeUpdateOutfitTwo = (event) => {
+  setUpdatedOutfitTwo(event.target.value)
+} 
+const changeUpdateOutfitThree = (event) => {
+  setUpdatedOutfitThree(event.target.value)
+}
+
+const createPackList = (event) => {
+    event.preventDefault();
+    axios.post(
+      'http://localhost:8080/pack',
+        {
+            day:newDay,
+            date:newDate,
+            outfitOne:newOutfitOne,
+            outfitTwo:newOutfitTwo,
+            outfitThree:newOutfitThree,
+        }
+    ).then(() => {
+      axios.get('http://localhost:8080/pack').then((response) => {
+      setPacklists(response.data)
+        })
+     })
   }
 
 const deletePacklist = (event) => {
-      axios.delete('/pack/' + event.target.value).then(
-          (response) => {
-              this.setState({
-                  packlists:response.data
-              })
-          }
-      )
+    axios.delete('http://localhost:8080/pack/' + event.target.value)
+    .then(() => {
+      axios.get('http://localhost:8080/pack').then((response) => {
+      setPacklists(response.data)
+        })
+     })
   }
 
-const updatePacklist = (event) => {
-      event.preventDefault();
-      const id = event.target.getAttribute('id');
-      axios.put(
-          '/pack/' + id,
-          {
-              day:this.state.updateDay,
-              date:this.state.updateDate,
-              outfitOne:this.state.updateOutfitOne,
-              outfitTwo:this.state.updateOutfitTwo,
-              outfitThree:this.state.updateOutfitThree,
-          }
-      ).then(
-          (response) => {
-              this.setState({
-                  packlists:response.data,
-                  day:'',
-                  date:'',
-                  outfitOne:'',
-                  outfitTwo:'',
-                  outfitThree:'',
-              })
-          }
-      )
+const handleUpdateDay = (data) => {
+  axios.put('http://localhost:8080/pack/' + data.target.value,
+  {
+    day:updatedDay,
+    date: data.date,
+    outfitOne: data.outfitOne,
+    outfitTwo: data.outfitTwo,
+    outfitThree: data.outfitThree
   }
+  ).then(() => {axios.get('http://localhost:8080/pack')
+  .then((response) => {
+    setPacklists(response.data)
+      })
+   })
+}
+const handleUpdateDate = (data) => {
+  axios.put('http://localhost:8080/pack/' + data.target.value,
+  {
+    day:data.day,
+    date: updatedDate,
+    outfitOne: data.outfitOne,
+    outfitTwo: data.outfitTwo,
+    outfitThree: data.outfitThree
+  }
+  ).then(() => {axios.get('http://localhost:8080/pack')
+  .then((response) => {
+    setPacklists(response.data)
+      })
+   })
+}
+const handleUpdateOutfitOne = (data) => {
+  axios.put('http://localhost:8080/pack/' + data.target.value,
+  {
+    day:data.day,
+    date: data.date,
+    outfitOne: updatedOutfitOne,
+    outfitTwo: data.outfitTwo,
+    outfitThree: data.outfitThree
+  }
+  ).then(() => {axios.get('http://localhost:8080/pack')
+  .then((response) => {
+    setPacklists(response.data)
+      })
+   })
+}
+const handleUpdateOutfitTwo = (data) => {
+  axios.put('http://localhost:8080/pack/' + data.target.value,
+  {
+    day: data.day,
+    date: data.date,
+    outfitOne: data.outfitOne,
+    outfitTwo: updatedOutfitTwo,
+    outfitThree: data.outfitThree
+  }
+  ).then(() => {axios.get('http://localhost:8080/pack')
+  .then((response) => {
+    setPacklists(response.data)
+      })
+   })
+}
+const handleUpdateOutfitThree = (data) => {
+  axios.put('http://localhost:8080/pack/' + data.target.value,
+  {
+    day: data.day,
+    date: data.date,
+    outfitOne: data.outfitOne,
+    outfitTwo: data.outfitTwo,
+    outfitThree: updatedOutfitThree
+  }
+  ).then(() => {axios.get('http://localhost:8080/pack')
+  .then((response) => {
+    setPacklists(response.data)
+      })
+   })
+}
 
-const changeUpdateDay = (event) => {
-      this.setState(
-          {
-              updateDay:event.target.value
-          }
-      )
-  }
+useEffect(() => {
+  getPackList()
+}, [])
 
-const changeUpdateDate = (event) => {
-      this.setState(
-          {
-              updateDate:event.target.value
-          }
-      )
-  }
-const changeUpdateOutfitOne = (event) => {
-      this.setState(
-          {
-              updateOutfitOne:event.target.value
-          }
-      )
-  }
-const changeUpdateOutfitTwo = (event) => {
-      this.setState(
-          {
-              updateOutfitTwo:event.target.value
-          }
-      )
-  }    
-const changeUpdateOutfitThree = (event) => {
-      this.setState(
-          {
-              updateOutfitThree:event.target.value
-          }
-      )
-  }
+const getPackList = () => {
+  axios
+  .get('http://localhost:8080/pack')
+  .then((response) => {
+    setPacklists(response.data)
+  })
+}
 
-  useEffect(() => {
-    getPackList()
- }, [])
   return <div>
     <h2>Current Packing List</h2>
       <div className="mainContainer">
         {
-          this.state.packlists.map(
-          (packlist) => {
+          packlists.map((packlist) => {
             return (   
               <div className="container">
               <h2>{packlist.day}</h2>
@@ -152,16 +174,20 @@ const changeUpdateOutfitThree = (event) => {
               <h4>{packlist.outfitOne}</h4>
               <h4>{packlist.outfitTwo}</h4>
               <h4>{packlist.outfitThree}</h4>
-                              
+              <button className='delete' onClick={ (event)=>{ deletePacklist(packlist) } }>Delete</button> <br></br>                
               <details> <summary>Modify List</summary>
-              <form id={packlist.id} onSubmit={this.updatePacklist}>
-              <input onKeyUp={this.changeUpdateDay} type="text" placeholder="Day #"/><br/>
-              <input onKeyUp={this.changeUpdateDate} type="text" placeholder="Date"/><br/>
-              <input onKeyUp={this.changeUpdateOutfitOne} type="text" placeholder="Outfit 1"/><br/>
-              <input onKeyUp={this.changeUpdateOutfitTwo} type="text" placeholder="Outfit 2"/><br/>
-              <input onKeyUp={this.changeUpdateOutfitThree} type="text" placeholder="Outfit 3"/><br/>
-              <input type="submit" value="Update List"/>
-              </form>
+              <div className='updateContainer'>
+              <button className='update' onClick={ (event) => { handleUpdateDay(packlist) } }>Update Name</button>
+              <input className='update1' type="text" placeholder={travel.name} onKeyUp= {updateNewNameChange}/> <br/>
+              <button className='update' onClick={ (event) => { handleUpdateDate(packlist) } }>Edit Location</button>
+              <input className='update1' type="text" placeholder={travel.location} onKeyUp= {updateNewLocationChange}/> <br/>
+              <button className='update' onClick={ (event) => { handleUpdateOutfitOne(packlist) } }>Update Description</button>
+              <input className='update1' type="text" placeholder={travel.description} onKeyUp= {updateNewDescriptionChange}/> <br/>
+              <button className='update' onClick={ (event) => { handleUpdateOutfitTwo(packlist) } }>Update Image</button>
+              <input className='update1' type="text" placeholder={travel.image} onKeyUp= {updateNewImageChange}/> <br/>
+              <button className='update' onClick={ (event) => { handleUpdateOutfitThree(packlist) } }>Update Nearby</button>
+              <input className='update1' type="text" placeholder={travel.nearby} onKeyUp= {updateNewNearbyChange}/> <br/>
+              </div>
                 <button value={packlist.id} onClick={this.deletePacklist}>Delete</button>
               </details>
               </div>
