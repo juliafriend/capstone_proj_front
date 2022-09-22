@@ -66,7 +66,7 @@ const createPackList = (event) => {
   }
 
 const deletePacklist = (event) => {
-    axios.delete('http://localhost:8080/pack/' + event.target.value)
+    axios.delete(`http://localhost:8080/pack/${event.id}`)
     .then(() => {
       axios.get('http://localhost:8080/pack').then((response) => {
       setPacklists(response.data)
@@ -75,7 +75,7 @@ const deletePacklist = (event) => {
   }
 
 const handleUpdateDay = (data) => {
-  axios.put('http://localhost:8080/pack/' + data.target.value,
+  axios.put(`http://localhost:8080/pack/${data.id}`,
   {
     day:updatedDay,
     date: data.date,
@@ -90,7 +90,7 @@ const handleUpdateDay = (data) => {
    })
 }
 const handleUpdateDate = (data) => {
-  axios.put('http://localhost:8080/pack/' + data.target.value,
+  axios.put(`http://localhost:8080/pack/${data.id}`,
   {
     day:data.day,
     date: updatedDate,
@@ -105,7 +105,7 @@ const handleUpdateDate = (data) => {
    })
 }
 const handleUpdateOutfitOne = (data) => {
-  axios.put('http://localhost:8080/pack/' + data.target.value,
+  axios.put(`http://localhost:8080/pack/${data.id}`,
   {
     day:data.day,
     date: data.date,
@@ -120,7 +120,7 @@ const handleUpdateOutfitOne = (data) => {
    })
 }
 const handleUpdateOutfitTwo = (data) => {
-  axios.put('http://localhost:8080/pack/' + data.target.value,
+  axios.put(`http:localhost:8080/pack/${data.id}`,
   {
     day: data.day,
     date: data.date,
@@ -135,7 +135,7 @@ const handleUpdateOutfitTwo = (data) => {
    })
 }
 const handleUpdateOutfitThree = (data) => {
-  axios.put('http://localhost:8080/pack/' + data.target.value,
+  axios.put(`http://localhost:8080/pack/${data.id}`,
   {
     day: data.day,
     date: data.date,
@@ -150,9 +150,7 @@ const handleUpdateOutfitThree = (data) => {
    })
 }
 
-useEffect(() => {
-  getPackList()
-}, [])
+
 
 const getPackList = () => {
   axios
@@ -161,6 +159,9 @@ const getPackList = () => {
     setPacklists(response.data)
   })
 }
+useEffect(() => {
+  getPackList()
+}, [])
 
   return (
   <>
