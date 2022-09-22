@@ -162,7 +162,8 @@ const getPackList = () => {
   })
 }
 
-  return <div>
+  return (
+  <>
     <h2>Current Packing List</h2>
       <div className="mainContainer">
         {
@@ -177,33 +178,36 @@ const getPackList = () => {
               <button className='delete' onClick={ (event)=>{ deletePacklist(packlist) } }>Delete</button> <br></br>                
               <details> <summary>Modify List</summary>
               <div className='updateContainer'>
-              <button className='update' onClick={ (event) => { handleUpdateDay(packlist) } }>Update Name</button>
-              <input className='update1' type="text" placeholder={travel.name} onKeyUp= {updateNewNameChange}/> <br/>
-              <button className='update' onClick={ (event) => { handleUpdateDate(packlist) } }>Edit Location</button>
-              <input className='update1' type="text" placeholder={travel.location} onKeyUp= {updateNewLocationChange}/> <br/>
-              <button className='update' onClick={ (event) => { handleUpdateOutfitOne(packlist) } }>Update Description</button>
-              <input className='update1' type="text" placeholder={travel.description} onKeyUp= {updateNewDescriptionChange}/> <br/>
-              <button className='update' onClick={ (event) => { handleUpdateOutfitTwo(packlist) } }>Update Image</button>
-              <input className='update1' type="text" placeholder={travel.image} onKeyUp= {updateNewImageChange}/> <br/>
-              <button className='update' onClick={ (event) => { handleUpdateOutfitThree(packlist) } }>Update Nearby</button>
-              <input className='update1' type="text" placeholder={travel.nearby} onKeyUp= {updateNewNearbyChange}/> <br/>
+              <button className='update' onClick={ (event) => { handleUpdateDay(packlist) } }>Update Day</button>
+              <input className='update1' type="text" placeholder={packlist.day} onKeyUp= {changeUpdateDay}/> <br/>
+              <button className='update' onClick={ (event) => { handleUpdateDate(packlist) } }>Update Date</button>
+              <input className='update1' type="text" placeholder={packlist.date} onKeyUp= {changeUpdateDate}/> <br/>
+              <button className='update' onClick={ (event) => { handleUpdateOutfitOne(packlist) } }>Update</button>
+              <input className='update1' type="text" placeholder={packlist.outfitOne} onKeyUp= {changeUpdateOutfitOne}/> <br/>
+              <button className='update' onClick={ (event) => { handleUpdateOutfitTwo(packlist) } }>Update</button>
+              <input className='update1' type="text" placeholder={packlist.outfitTwo} onKeyUp= {changeUpdateOutfitTwo}/> <br/>
+              <button className='update' onClick={ (event) => { handleUpdateOutfitThree(packlist) } }>Update</button>
+              <input className='update1' type="text" placeholder={packlist.outfitThree} onKeyUp= {changeUpdateOutfitThree}/> <br/>
               </div>
-                <button value={packlist.id} onClick={this.deletePacklist}>Delete</button>
               </details>
               </div>
                   )})
               }
           <div className="newContainer">
-          <form onSubmit={this.createPackList}>
-              <input onKeyUp={this.changeNewDay} type="text" placeholder="Day #" /><br/>
-              <input onKeyUp={this.changeNewDate} type="text" placeholder="Date" /><br/>
-              <input onKeyUp={this.changeNewOutfitOne} type="text" placeholder="Outfit 1" /><br/>
-              <input onKeyUp={this.changeNewOutfitTwo} type="text" placeholder="Outfit 2" /><br/>
-              <input onKeyUp={this.changeNewOutfitThree} type="text" placeholder="Outfit 3" /><br/>
-              <input type="submit" value="Add to List" />
-          </form>
-          </div>
-          </div>
+          <h2>Add a list</h2>
+            <div className='subContainer1'>
+              <form onSubmit={createPackList}>
+                <input className='update1' type="text" placeholder="Day" onChange={changeNewDay}/><br/>
+                <input className='update1' type="text" placeholder="Date" onChange={changeNewDate}/><br/>
+                <input className='update1' type="text" placeholder="Outfit 1" onChange={changeNewOutfitOne}/><br/>
+                <input className='update1' type="text" placeholder="Outfit 2" onChange={changeNewOutfitTwo}/><br/>
+                <input className='update1' type="text" placeholder="Outfit 3" onChange={changeNewOutfitThree}/><br/>
+                <br></br>
+                <input className='margin' type="submit" value="Add List"/>
+                <input className='margin1' type="reset" value="Reset Form"/>
+              </form>
+            </div>
+            </div>
           <div className="Outfit Options">
               <h3>travel day</h3>
               <h3>activewear</h3>
@@ -212,6 +216,8 @@ const getPackList = () => {
               <h3>accessories</h3>
           </div>
       </div>
+      </>
+      )
   }
 
 export default App;
